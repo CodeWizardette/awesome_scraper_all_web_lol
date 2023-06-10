@@ -6,6 +6,27 @@ import logging
 import random
 from requestium import Session, Keys
 
+
+def get_cookie_count():
+    url = "https://example.com"  # Scraping yapmak istediğiniz web sitesinin URL'sini buraya girin
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Web sayfasında cookie sayısını içeren bir HTML elementini bulun
+    cookie_element = soup.find("span", id="cookie_count")  # Örnek olarak, "cookie_count" ID'sine sahip bir <span> elementini arıyoruz
+
+    if cookie_element:
+        cookie_count = int(cookie_element.text)
+        return cookie_count
+    else:
+        print("Cookie count element not found on the page.")
+        return None
+
+# Cookie sayısını get_cookie_count() fonksiyonunu kullanarak alalım
+cookie_count = get_cookie_count()
+if cookie_count:
+    print("Cookie Count:", cookie_count)
+
 # Set the URL and headers
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
